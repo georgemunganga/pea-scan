@@ -15,3 +15,8 @@
 - Let visitors share the profile and access/download a QR code for its page.
 - Link only to the verified Instagram and Facebook profiles.
 - Use concise labels, accessible tap targets, and a mobile layout that avoids unnecessary scrolling.
+
+## [x] 4. Featured products carousel
+- Show the official Baobab Nourishing Serum photo prominently and provide concise linked cards for other featured shop products.
+- Let visitors move between featured products with accessible carousel controls.
+- Position the carousel beside the contact card on wider screens and below it on phones so essential contact actions remain first.

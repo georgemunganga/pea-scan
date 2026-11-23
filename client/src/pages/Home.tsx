@@ -3,6 +3,8 @@ import QRCode from "qrcode";
 import {
   ArrowDown,
   ArrowUpRight,
+  ChevronLeft,
+  ChevronRight,
   Facebook,
   Instagram,
   Mail,
@@ -26,6 +28,27 @@ const SOCIALS = {
   facebook: "https://www.facebook.com/Beezcraftedsoapandlotions/",
   instagram: "https://www.instagram.com/apothecary_essence2019/",
 };
+
+const FEATURED_PRODUCTS = [
+  {
+    name: "Baobab Nourishing Serum",
+    href: "https://www.pureessenceapothecary.com/product/110",
+    image: "/manus-storage/baobab-nourishing-serum_44128b88.jpeg",
+    imageAlt: "Baobab Nourishing Serum bottle",
+  },
+  {
+    name: "Baobab Cleansing Wash (100 ml)",
+    href: "https://www.pureessenceapothecary.com/product/109",
+  },
+  {
+    name: "Baobab Hydrating Cream (50 ml)",
+    href: "https://www.pureessenceapothecary.com/product/108",
+  },
+  {
+    name: "Baobab Body Lotion (250 ml)",
+    href: "https://www.pureessenceapothecary.com/product/107",
+  },
+];
 
 const locations = [
   {
@@ -75,6 +98,16 @@ export default function Home() {
   const [qrData, setQrData] = useState("");
   const [qrError, setQrError] = useState(false);
   const [notice, setNotice] = useState("");
+  const [activeProductIndex, setActiveProductIndex] = useState(0);
+  const activeProduct = FEATURED_PRODUCTS[activeProductIndex];
+
+  function showPreviousProduct() {
+    setActiveProductIndex((index) => (index - 1 + FEATURED_PRODUCTS.length) % FEATURED_PRODUCTS.length);
+  }
+
+  function showNextProduct() {
+    setActiveProductIndex((index) => (index + 1) % FEATURED_PRODUCTS.length);
+  }
 
   useEffect(() => {
     if (!qrOpen) return;
@@ -122,6 +155,7 @@ export default function Home() {
 
   return (
     <main className="quick-page">
+      <div className="quick-layout">
       <article className="contact-card">
         <header className="brand-row">
           <img
@@ -200,6 +234,50 @@ export default function Home() {
           <span className="footer-location">Zambia</span>
         </footer>
       </article>
+
+      <section className="product-showcase" aria-labelledby="products-title">
+        <div className="product-heading">
+          <div>
+            <p>SHOP FAVOURITES</p>
+            <h2 id="products-title">A little glow, your way.</h2>
+          </div>
+          <span className="product-count" aria-live="polite">
+            {String(activeProductIndex + 1).padStart(2, "0")} / {String(FEATURED_PRODUCTS.length).padStart(2, "0")}
+          </span>
+        </div>
+
+        <a className={`product-card ${activeProduct.image ? "has-image" : "text-only"}`} href={activeProduct.href} target="_blank" rel="noreferrer">
+          {activeProduct.image && (
+            <div className="product-photo">
+              <img src={activeProduct.image} alt={activeProduct.imageAlt} />
+            </div>
+          )}
+          <div className="product-card-copy" aria-live="polite">
+            <p className="product-kicker">Featured from the shop</p>
+            <h3>{activeProduct.name}</h3>
+            <span className="product-shop-link">View product <ArrowUpRight size={15} aria-hidden="true" /></span>
+          </div>
+        </a>
+
+        <div className="product-controls" aria-label="Featured product controls">
+          <div className="product-dots" aria-label="Choose a featured product">
+            {FEATURED_PRODUCTS.map((product, index) => (
+              <button
+                key={product.name}
+                type="button"
+                aria-label={`Show ${product.name}`}
+                aria-pressed={index === activeProductIndex}
+                onClick={() => setActiveProductIndex(index)}
+              />
+            ))}
+          </div>
+          <div className="product-arrows">
+            <button type="button" aria-label="Previous product" onClick={showPreviousProduct}><ChevronLeft size={18} /></button>
+            <button type="button" aria-label="Next product" onClick={showNextProduct}><ChevronRight size={18} /></button>
+          </div>
+        </div>
+      </section>
+      </div>
 
       <div className="mobile-bar" aria-label="Quick contact actions">
         <a href={WHATSAPP_URL} target="_blank" rel="noreferrer"><MessageCircle size={18} />WhatsApp</a>
