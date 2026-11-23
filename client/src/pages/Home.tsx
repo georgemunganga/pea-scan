@@ -45,60 +45,71 @@ type ShowcaseSlide = {
 
 const SHOWCASE_SLIDES: ShowcaseSlide[] = [
   {
+    id: "nature-everyday-care",
+    kind: "campaign",
+    eyebrow: "NATURE’S KISS · CONSUMER BRAND",
+    title: "African botanicals. Everyday care.",
+    description: "Nature’s Kiss is the consumer brand of Pure Essence Apothecary, with care across face, body, hair, cleansing, oils and butters.",
+    href: SHOP_URL,
+    image: "/manus-storage/img-000_7ad2b5ad.jpg",
+    imageAlt: "Official Pure Essence Apothecary profile cover with skincare imagery and the line African botanicals. Everyday care.",
+    action: "Explore the range",
+  },
+  {
     id: "serum",
     kind: "product",
-    eyebrow: "BAOBAB SKINCARE",
-    title: "Baobab Nourishing Serum",
-    description: "A featured favourite from the Pure Essence shop.",
+    eyebrow: "BAOBAB FACE CARE",
+    title: "Baobab Nourishing Serum (30 ml)",
+    description: "Hyaluronic acid, baobab oil and vitamin E; positioned for hydration and nourishment.",
     href: "https://www.pureessenceapothecary.com/product/110",
     image: "/manus-storage/baobab-nourishing-serum_44128b88.jpeg",
     imageAlt: "Baobab Nourishing Serum bottle",
     action: "View product",
   },
   {
-    id: "glow-story",
-    kind: "campaign",
-    eyebrow: "PURE ESSENCE APOTHECARY",
-    title: "Beauty that feels like you.",
-    description: "Premium makeup & skincare · Since 2019",
-    href: SHOP_URL,
-    action: "Explore the shop",
-  },
-  {
     id: "cleansing-wash",
     kind: "product",
-    eyebrow: "BAOBAB SKINCARE",
+    eyebrow: "BAOBAB FACE CARE",
     title: "Baobab Cleansing Wash (100 ml)",
-    description: "Explore this featured favourite on the official shop.",
+    description: "Part of a complementary face-care selection with the hydrating cream and serum.",
     href: "https://www.pureessenceapothecary.com/product/109",
     action: "View product",
   },
   {
     id: "hydrating-cream",
     kind: "product",
-    eyebrow: "BAOBAB SKINCARE",
+    eyebrow: "BAOBAB FACE CARE",
     title: "Baobab Hydrating Cream (50 ml)",
-    description: "Explore this featured favourite on the official shop.",
+    description: "Part of a complementary baobab face-care selection for everyday routines.",
     href: "https://www.pureessenceapothecary.com/product/108",
     action: "View product",
   },
   {
-    id: "glow-journey",
-    kind: "campaign",
-    eyebrow: "SHOP THE COLLECTION",
-    title: "Start your glow journey.",
-    description: "Discover carefully curated makeup and skincare for your beauty needs.",
-    href: SHOP_URL,
-    action: "Browse the collection",
-  },
-  {
     id: "body-lotion",
     kind: "product",
-    eyebrow: "BAOBAB SKINCARE",
+    eyebrow: "BAOBAB BODY CARE",
     title: "Baobab Body Lotion (250 ml)",
-    description: "Explore this featured favourite on the official shop.",
+    description: "A moisturising option in the profile’s baobab body-care range.",
     href: "https://www.pureessenceapothecary.com/product/107",
     action: "View product",
+  },
+  {
+    id: "hair-scalp-care",
+    kind: "product",
+    eyebrow: "HAIR & SCALP CARE",
+    title: "Care for hair and scalp.",
+    description: "Moringa Hair Shampoo and Hair Growth Super Hair Food complement Mongongo Oil for hair and skin care.",
+    href: SHOP_URL,
+    action: "Browse the range",
+  },
+  {
+    id: "circular-production",
+    kind: "campaign",
+    eyebrow: "CIRCULAR PRODUCTION",
+    title: "More value from forest fruits and nuts.",
+    description: "Baobab and mongongo oils support personal-care formulations; husks can become activated charcoal for soap and body scrubs.",
+    href: SHOP_URL,
+    action: "Explore the range",
   },
 ];
 
@@ -317,8 +328,8 @@ export default function Home() {
       >
         <div className="showcase-heading">
           <div>
-            <p>THE PURE ESSENCE EDIT</p>
-            <h2 id="showcase-title">Products &amp; little stories.</h2>
+            <p>NATURE’S KISS · PURE ESSENCE APOTHECARY</p>
+            <h2 id="showcase-title">Care for everyday routines.</h2>
           </div>
           <span className="showcase-count" aria-live="off">
             {String(activeShowcaseIndex + 1).padStart(2, "0")} / {String(SHOWCASE_SLIDES.length).padStart(2, "0")}

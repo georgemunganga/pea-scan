@@ -17,6 +17,7 @@
 - Use concise labels, accessible tap targets, and a mobile layout that avoids unnecessary scrolling.
 
 ## [x] 4. Product and brand-promotion showcase
-- Mix the official Baobab Nourishing Serum photo and linked featured-product cards with concise brand-promotion slides.
+- Mix the verified Baobab Nourishing Serum photo and linked featured-product cards with concise brand-promotion slides grounded in the 2026 company profile; use its product names, categories, brand language, and any suitable supplied campaign imagery.
+- Avoid inventing discounts, product claims, or packaging; do not enlarge low-resolution product cutouts when a sharper approved product image is unavailable.
 - Use a dark cacao-to-transparent backdrop with subtle smooth animation and smooth slide changes; provide manual navigation and pause/play controls, and respect reduced-motion preferences.
 - Position the showcase beside the contact card on wider screens and below it on phones so essential contact actions remain first.
