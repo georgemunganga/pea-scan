@@ -6,7 +6,7 @@
 @theme inline {
   --color-background: var(--paper);
   --color-foreground: var(--ink);
-  --color-primary: var(--forest);
+  --color-primary: var(--button-brand);
   --color-primary-foreground: #fffdf8;
 }
 
@@ -14,6 +14,8 @@
   --forest: #244735;
   --leaf: #56734d;
   --gold: #bd9651;
+  --button-brand: #662609;
+  --button-brand-hover: #4f1d08;
   --paper: #f5f3eb;
   --card: #fffefa;
   --ink: #1f3025;
@@ -94,6 +96,21 @@ img { display: block; max-width: 100%; }
 .qr-frame span { max-width: 150px; color: var(--muted); font-size: 10px; line-height: 1.5; }
 .download-qr { display: inline-flex; min-height: 40px; align-items: center; gap: 8px; padding: 0 15px; border-radius: 999px; color: #fff; background: var(--forest); font-size: 10px; font-weight: 700; }
 .close-text { margin-top: 9px; padding: 7px 12px; border: 0; color: var(--muted); background: transparent; font-size: 10px; }
+
+/* CTA buttons use the requested brand brown; secondary actions stay warm and neutral. */
+.shop-button,
+.download-qr { border: 1px solid var(--button-brand); border-radius: 16px; color: #fffefa; background: var(--button-brand); }
+.shop-button:hover,
+.download-qr:hover { border-color: var(--button-brand-hover); background: var(--button-brand-hover); }
+.contact-button { border-color: #ead9ce; border-radius: 16px; color: var(--button-brand); background: #fbf6f2; }
+.contact-button:hover { border-color: var(--button-brand); background: #f4e9e1; }
+.whatsapp-button { border-color: var(--button-brand); color: #fffefa; background: var(--button-brand); }
+.whatsapp-button:hover { border-color: var(--button-brand-hover); color: #fffefa; background: var(--button-brand-hover); }
+.profile-tools button { border-radius: 16px; color: var(--button-brand); background: #f5eee8; }
+.profile-tools button:hover { border-color: #e4c8b8; background: #efe1d8; }
+.location-row { border-radius: 16px; }
+.mobile-bar a { border-radius: 16px; color: var(--button-brand); }
+.mobile-bar a:first-child { color: var(--button-brand); }
 
 @media (max-width: 560px) {
   .quick-page { padding: 12px 10px 84px; }

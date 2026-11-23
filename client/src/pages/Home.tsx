@@ -86,7 +86,7 @@ export default function Home() {
       width: 360,
       margin: 2,
       errorCorrectionLevel: "H",
-      color: { dark: "#244735", light: "#fffdf8" },
+      color: { dark: "#662609", light: "#fffdf8" },
     })
       .then((data) => active && setQrData(data))
       .catch(() => active && setQrError(true));
