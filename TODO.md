@@ -13,6 +13,7 @@
 ## [x] 3. Contact-card utilities
 - Let visitors save the business contact as a vCard.
 - Let visitors share the profile and access/download a QR code for its page.
+- Let visitors download the supplied 2026 company profile as a PDF from a clearly labeled, phone-friendly button on the contact card.
 - Link only to the verified Instagram and Facebook profiles.
 - Use concise labels, accessible tap targets, and a mobile layout that avoids unnecessary scrolling.
 

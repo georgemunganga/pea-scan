@@ -5,6 +5,7 @@ import {
   ArrowUpRight,
   ChevronLeft,
   ChevronRight,
+  Download,
   Facebook,
   Instagram,
   Mail,
@@ -24,6 +25,7 @@ const WEBSITE_URL = "https://www.pureessenceapothecary.com/";
 const PHONE_DISPLAY = "+260 97 7883578";
 const PHONE_E164 = "+260977883578";
 const EMAIL = "customercare@pureessenceapothecary.com";
+const COMPANY_PROFILE_URL = "/manus-storage/Pure_EssenceApothecary_CompanyProfile2026_df76dbf9.pdf";
 const WHATSAPP_URL =
   "https://wa.me/260977883578?text=Hello%20Pure%20Essence%20Apothecary%2C%20I%27d%20love%20to%20know%20more.";
 const SOCIALS = {
@@ -306,6 +308,17 @@ export default function Home() {
           <button type="button" onClick={shareProfile}><Share2 size={17} aria-hidden="true" />Share</button>
           <button type="button" onClick={() => setQrOpen(true)}><QrCode size={17} aria-hidden="true" />QR code</button>
         </section>
+        <a
+          className="profile-download"
+          href={COMPANY_PROFILE_URL}
+          download="Pure-Essence-Apothecary-Company-Profile-2026.pdf"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Download the 2026 Pure Essence Apothecary company profile PDF"
+        >
+          <Download size={17} aria-hidden="true" />
+          <span>Download company profile <small>2026 PDF</small></span>
+        </a>
         {notice && <p className="notice" role="status">{notice}</p>}
 
         <footer className="card-footer">
