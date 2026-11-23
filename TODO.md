@@ -16,7 +16,7 @@
 - Link only to the verified Instagram and Facebook profiles.
 - Use concise labels, accessible tap targets, and a mobile layout that avoids unnecessary scrolling.
 
-## [x] 4. Featured products carousel
-- Show the official Baobab Nourishing Serum photo prominently and provide concise linked cards for other featured shop products.
-- Let visitors move between featured products with accessible carousel controls.
-- Position the carousel beside the contact card on wider screens and below it on phones so essential contact actions remain first.
+## [x] 4. Product and brand-promotion showcase
+- Mix the official Baobab Nourishing Serum photo and linked featured-product cards with concise brand-promotion slides.
+- Use a dark cacao-to-transparent backdrop with subtle smooth animation and smooth slide changes; provide manual navigation and pause/play controls, and respect reduced-motion preferences.
+- Position the showcase beside the contact card on wider screens and below it on phones so essential contact actions remain first.

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type FocusEvent } from "react";
 import QRCode from "qrcode";
 import {
   ArrowDown,
@@ -10,7 +10,9 @@ import {
   Mail,
   MapPin,
   MessageCircle,
+  Pause,
   Phone,
+  Play,
   QrCode,
   Share2,
   ShoppingBag,
@@ -29,24 +31,74 @@ const SOCIALS = {
   instagram: "https://www.instagram.com/apothecary_essence2019/",
 };
 
-const FEATURED_PRODUCTS = [
+type ShowcaseSlide = {
+  id: string;
+  kind: "product" | "campaign";
+  eyebrow: string;
+  title: string;
+  description: string;
+  href: string;
+  action: string;
+  image?: string;
+  imageAlt?: string;
+};
+
+const SHOWCASE_SLIDES: ShowcaseSlide[] = [
   {
-    name: "Baobab Nourishing Serum",
+    id: "serum",
+    kind: "product",
+    eyebrow: "BAOBAB SKINCARE",
+    title: "Baobab Nourishing Serum",
+    description: "A featured favourite from the Pure Essence shop.",
     href: "https://www.pureessenceapothecary.com/product/110",
     image: "/manus-storage/baobab-nourishing-serum_44128b88.jpeg",
     imageAlt: "Baobab Nourishing Serum bottle",
+    action: "View product",
   },
   {
-    name: "Baobab Cleansing Wash (100 ml)",
+    id: "glow-story",
+    kind: "campaign",
+    eyebrow: "PURE ESSENCE APOTHECARY",
+    title: "Beauty that feels like you.",
+    description: "Premium makeup & skincare · Since 2019",
+    href: SHOP_URL,
+    action: "Explore the shop",
+  },
+  {
+    id: "cleansing-wash",
+    kind: "product",
+    eyebrow: "BAOBAB SKINCARE",
+    title: "Baobab Cleansing Wash (100 ml)",
+    description: "Explore this featured favourite on the official shop.",
     href: "https://www.pureessenceapothecary.com/product/109",
+    action: "View product",
   },
   {
-    name: "Baobab Hydrating Cream (50 ml)",
+    id: "hydrating-cream",
+    kind: "product",
+    eyebrow: "BAOBAB SKINCARE",
+    title: "Baobab Hydrating Cream (50 ml)",
+    description: "Explore this featured favourite on the official shop.",
     href: "https://www.pureessenceapothecary.com/product/108",
+    action: "View product",
   },
   {
-    name: "Baobab Body Lotion (250 ml)",
+    id: "glow-journey",
+    kind: "campaign",
+    eyebrow: "SHOP THE COLLECTION",
+    title: "Start your glow journey.",
+    description: "Discover carefully curated makeup and skincare for your beauty needs.",
+    href: SHOP_URL,
+    action: "Browse the collection",
+  },
+  {
+    id: "body-lotion",
+    kind: "product",
+    eyebrow: "BAOBAB SKINCARE",
+    title: "Baobab Body Lotion (250 ml)",
+    description: "Explore this featured favourite on the official shop.",
     href: "https://www.pureessenceapothecary.com/product/107",
+    action: "View product",
   },
 ];
 
@@ -98,16 +150,36 @@ export default function Home() {
   const [qrData, setQrData] = useState("");
   const [qrError, setQrError] = useState(false);
   const [notice, setNotice] = useState("");
-  const [activeProductIndex, setActiveProductIndex] = useState(0);
-  const activeProduct = FEATURED_PRODUCTS[activeProductIndex];
+  const [activeShowcaseIndex, setActiveShowcaseIndex] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(() => {
+    if (typeof window === "undefined" || !window.matchMedia) return false;
+    return !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  });
+  const [isShowcaseHovered, setIsShowcaseHovered] = useState(false);
+  const [isShowcaseFocused, setIsShowcaseFocused] = useState(false);
+  const activeSlide = SHOWCASE_SLIDES[activeShowcaseIndex];
 
-  function showPreviousProduct() {
-    setActiveProductIndex((index) => (index - 1 + FEATURED_PRODUCTS.length) % FEATURED_PRODUCTS.length);
+  function showPreviousSlide() {
+    setActiveShowcaseIndex((index) => (index - 1 + SHOWCASE_SLIDES.length) % SHOWCASE_SLIDES.length);
   }
 
-  function showNextProduct() {
-    setActiveProductIndex((index) => (index + 1) % FEATURED_PRODUCTS.length);
+  function showNextSlide() {
+    setActiveShowcaseIndex((index) => (index + 1) % SHOWCASE_SLIDES.length);
   }
+
+  function handleShowcaseBlur(event: FocusEvent<HTMLElement>) {
+    const nextTarget = event.relatedTarget;
+    if (nextTarget instanceof Node && event.currentTarget.contains(nextTarget)) return;
+    setIsShowcaseFocused(false);
+  }
+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
+    if (!isAutoPlaying || isShowcaseHovered || isShowcaseFocused || prefersReducedMotion) return;
+
+    const timer = window.setInterval(showNextSlide, 6800);
+    return () => window.clearInterval(timer);
+  }, [activeShowcaseIndex, isAutoPlaying, isShowcaseHovered, isShowcaseFocused]);
 
   useEffect(() => {
     if (!qrOpen) return;
@@ -235,45 +307,68 @@ export default function Home() {
         </footer>
       </article>
 
-      <section className="product-showcase" aria-labelledby="products-title">
-        <div className="product-heading">
+      <section
+        className="product-showcase"
+        aria-labelledby="showcase-title"
+        onMouseEnter={() => setIsShowcaseHovered(true)}
+        onMouseLeave={() => setIsShowcaseHovered(false)}
+        onFocusCapture={() => setIsShowcaseFocused(true)}
+        onBlurCapture={handleShowcaseBlur}
+      >
+        <div className="showcase-heading">
           <div>
-            <p>SHOP FAVOURITES</p>
-            <h2 id="products-title">A little glow, your way.</h2>
+            <p>THE PURE ESSENCE EDIT</p>
+            <h2 id="showcase-title">Products &amp; little stories.</h2>
           </div>
-          <span className="product-count" aria-live="polite">
-            {String(activeProductIndex + 1).padStart(2, "0")} / {String(FEATURED_PRODUCTS.length).padStart(2, "0")}
+          <span className="showcase-count" aria-live="off">
+            {String(activeShowcaseIndex + 1).padStart(2, "0")} / {String(SHOWCASE_SLIDES.length).padStart(2, "0")}
           </span>
         </div>
 
-        <a className={`product-card ${activeProduct.image ? "has-image" : "text-only"}`} href={activeProduct.href} target="_blank" rel="noreferrer">
-          {activeProduct.image && (
-            <div className="product-photo">
-              <img src={activeProduct.image} alt={activeProduct.imageAlt} />
+        <a
+          key={activeSlide.id}
+          className={`showcase-slide ${activeSlide.kind}-slide${activeSlide.image ? " has-photo" : ""}`}
+          href={activeSlide.href}
+          target="_blank"
+          rel="noreferrer"
+        >
+          {activeSlide.image && (
+            <div className="showcase-photo">
+              <img src={activeSlide.image} alt={activeSlide.imageAlt ?? activeSlide.title} />
             </div>
           )}
-          <div className="product-card-copy" aria-live="polite">
-            <p className="product-kicker">Featured from the shop</p>
-            <h3>{activeProduct.name}</h3>
-            <span className="product-shop-link">View product <ArrowUpRight size={15} aria-hidden="true" /></span>
+          <div className="showcase-copy">
+            <p className="showcase-kicker">{activeSlide.eyebrow}</p>
+            <h3>{activeSlide.title}</h3>
+            <p className="showcase-description">{activeSlide.description}</p>
+            <span className="showcase-cta">{activeSlide.action} <ArrowUpRight size={15} aria-hidden="true" /></span>
           </div>
         </a>
 
-        <div className="product-controls" aria-label="Featured product controls">
-          <div className="product-dots" aria-label="Choose a featured product">
-            {FEATURED_PRODUCTS.map((product, index) => (
+        <div className="showcase-controls" aria-label="Product and brand feature controls">
+          <div className="showcase-dots" aria-label="Choose a product or brand feature">
+            {SHOWCASE_SLIDES.map((slide, index) => (
               <button
-                key={product.name}
+                key={slide.id}
                 type="button"
-                aria-label={`Show ${product.name}`}
-                aria-pressed={index === activeProductIndex}
-                onClick={() => setActiveProductIndex(index)}
+                aria-label={`Show ${slide.title}`}
+                aria-pressed={index === activeShowcaseIndex}
+                onClick={() => setActiveShowcaseIndex(index)}
               />
             ))}
           </div>
-          <div className="product-arrows">
-            <button type="button" aria-label="Previous product" onClick={showPreviousProduct}><ChevronLeft size={18} /></button>
-            <button type="button" aria-label="Next product" onClick={showNextProduct}><ChevronRight size={18} /></button>
+          <div className="showcase-buttons">
+            <button type="button" aria-label="Previous slide" onClick={showPreviousSlide}><ChevronLeft size={18} /></button>
+            <button
+              type="button"
+              className="showcase-toggle"
+              aria-label={isAutoPlaying ? "Pause slideshow" : "Play slideshow"}
+              aria-pressed={!isAutoPlaying}
+              onClick={() => setIsAutoPlaying((playing) => !playing)}
+            >
+              {isAutoPlaying ? <Pause size={16} /> : <Play size={16} />}
+            </button>
+            <button type="button" aria-label="Next slide" onClick={showNextSlide}><ChevronRight size={18} /></button>
           </div>
         </div>
       </section>
